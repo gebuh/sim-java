@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnimalsServiceImpl {
@@ -15,17 +16,41 @@ public class AnimalsServiceImpl {
     private AnimalsRepository animalsRepository;
 
     public List<AnimalsDTO> getAnimals(){
-        List<AnimalsDTO> animalsDTOList = new ArrayList();
-        List<AnimalsEntity> animalsEntityList = animalsRepository.findAll();
-        AnimalsDTO dto = null;
-        for(AnimalsEntity ae : animalsEntityList) {
-            dto = new AnimalsDTO();
-            dto.setId(ae.getId());
-            dto.setName(ae.getName());
-            dto.setSpecies(ae.getSpecies());
-            animalsDTOList.add(dto);
-        }
-        return animalsDTOList;
+        List<AnimalsEntity> aelist = animalsRepository.findAll();
+        return aelist.stream().map(ae -> this.convertAE_DTO(ae)).collect(Collectors.toList());
     }
+
+    public AnimalsDTO getAnimal(int id) {
+        AnimalsEntity ae = animalsRepository.findById(id).orElse(null);
+        return convertAE_DTO(ae);
+    }
+
+    public List<AnimalsDTO> getSpecies(String species) {
+        List<AnimalsEntity> aelist = animalsRepository.findBySpecies(species);
+        return aelist.stream().map(ae -> this.convertAE_DTO(ae)).collect(Collectors.toList());
+    }
+
+    public String addAnimal(AnimalsDTO dto) {
+        AnimalsEntity ae = new AnimalsEntity();
+        ae.setName(dto.getName());
+        ae.setSpecies(dto.getSpecies());
+        animalsRepository.save(ae);
+        return dto.getName() + " saved";
+    }
+
+    public String deleteAnimal(AnimalsDTO dto) {
+        animalsRepository.deleteByNameAndAndSpecies(dto.getName(), dto.getSpecies());
+        return dto.getName() + " removed";
+    }
+
+
+    private AnimalsDTO convertAE_DTO(AnimalsEntity ae) {
+        AnimalsDTO dto = new AnimalsDTO();
+        dto.setId(ae.getId());
+        dto.setName(ae.getName());
+        dto.setSpecies(ae.getSpecies());
+        return dto;
+    }
+
 
 }

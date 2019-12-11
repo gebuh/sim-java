@@ -1,11 +1,13 @@
 package com.boose.sim.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -14,9 +16,11 @@ public class UsersEntity {
     @Column(name = "id")
     private int id;
 
+    @NotEmpty
     @Column(name = "username")
     private String username;
 
+    @NotEmpty
     @Column(name = "password")
     @JsonIgnore
     private String password;
