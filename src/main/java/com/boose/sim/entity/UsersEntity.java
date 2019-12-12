@@ -15,7 +15,7 @@ public class UsersEntity {
     private int id;
 
     @NotEmpty
-    @Column(name = "username")
+    @Column(name = "username", unique=true)
     private String username;
 
     @NotEmpty
