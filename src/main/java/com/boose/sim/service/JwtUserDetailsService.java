@@ -17,16 +17,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UsersRepository usersRepository;
 
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UsersEntity ue = this.usersRepository.findFirstByUsername(username).orElseThrow(()
                 -> new UsernameNotFoundException("Username: " + username + " not found"));
-
+        System.out.println("user password: " + ue.getPassword());
         return new org.springframework.security.core.userdetails.User(ue.getUsername(), ue.getPassword(),
-                new ArrayList<>());
+                true, true, true, true, new ArrayList<>());
     }
+
 }

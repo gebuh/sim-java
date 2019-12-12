@@ -1,5 +1,7 @@
 package com.boose.sim.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UsersDTO {
     private Integer id;
     private String username;
@@ -21,6 +23,7 @@ public class UsersDTO {
         this.username = username;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }
