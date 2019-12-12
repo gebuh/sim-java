@@ -1,16 +1,21 @@
 # Backend sim implemented in Java
 
 To run, from the parent directory:
+
 Run ./initialize-database.sh to populate base data
+
 jwt token expiration is set to 3 minutes
+
 change it in application.properties (jwt.token.valid) and restart for a longer token session.
 
 From terminal:
+
 $ mvn install
+
 $ java -jar target/sim-0.0.1-SNAPSHOT.jar
 
 run postman at backend-sim.postman_collection.json
-or use HTTP
+or use HTTPie or curl
 
 Structure:
 ```bash
