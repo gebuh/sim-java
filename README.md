@@ -13,7 +13,7 @@ run postman at backend-sim.postman_collection.json
 or use HTTP
 
 Structure:
-.
+```bash
 ├── backend-sim.postman_collection.json
 ├── data
 │   ├── data.sql
