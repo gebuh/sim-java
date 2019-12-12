@@ -19,12 +19,9 @@ import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
-/**
- * Created by tharsan on 4/24/18.
- */
 @Configuration
 @EnableJpaRepositories(basePackages = "com.boose.sim.repository")
-@PropertySource("persistence-sqlite.properties")
+@PropertySource("classpath:persistence-sqlite.properties")
 public class DatasourceConfig {
 
     @Autowired
@@ -35,8 +32,6 @@ public class DatasourceConfig {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("driverClassName"));
         dataSource.setUrl(env.getProperty("url"));
-//        dataSource.setUsername(env.getProperty("user"));
-//        dataSource.setPassword(env.getProperty("password"));
         return dataSource;
     }
 
@@ -71,15 +66,6 @@ public class DatasourceConfig {
     class SqliteConfig {
     }
 
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("datasource") DataSource ds) throws PropertyVetoException{
-//        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-//        entityManagerFactory.setDataSource(ds);
-//        entityManagerFactory.setPackagesToScan(new String[]{"asia.embla.entity"});
-//        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-//        entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-//        return entityManagerFactory;
-//    }
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
