@@ -35,9 +35,9 @@ public class JwtAuthenticationController {
     }
 
     @GetMapping(value = "/status")
-    @ResponseBody
-    public ResponseEntity wereAllOK() {
-        return new ResponseEntity(HttpStatus.I_AM_A_TEAPOT);
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    public void wereAllOK() {
+
     }
 
     private void authenticate(String username, String password) throws Exception {
