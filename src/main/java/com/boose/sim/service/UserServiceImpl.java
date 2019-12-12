@@ -39,6 +39,11 @@ public class UserServiceImpl {
         return dto.getUsername() + " saved";
     }
 
+    public String deleteUser(UsersDTO dto) {
+        usersRepository.deleteByUsername(dto.getUsername());
+        return dto.getUsername() + " removed";
+    }
+
     private UsersDTO convertUE_DTO(UsersEntity ue) {
         UsersDTO dto = new UsersDTO();
         dto.setId(ue.getId());
